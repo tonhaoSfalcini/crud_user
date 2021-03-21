@@ -1,0 +1,30 @@
+
+drop table if exists usuario_foto;
+
+drop table if exists usuario;
+
+CREATE TABLE public.usuario_foto
+(
+    usuariofotoid bigint NOT NULL,
+    contenttype character varying(255) ,
+    datacadastro date,
+    extensao character varying(255) ,
+    file bytea,
+    nome character varying(255) ,
+    CONSTRAINT usuario_foto_pkey PRIMARY KEY (usuariofotoid)
+);
+
+CREATE TABLE public.usuario
+(
+    id bigint NOT NULL,
+    codigo integer,
+    datanascimento date,
+    nome character varying(255),
+    usuariofotoid bigint,
+    CONSTRAINT usuario_pkey PRIMARY KEY (id),
+    CONSTRAINT fkn0fkppnprf2yt76eb7x5ii1ud FOREIGN KEY (usuariofotoid)
+        REFERENCES public.usuario_foto (usuariofotoid)
+);
+
+CREATE SEQUENCE seq_cur MINVALUE 1 START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_curf MINVALUE 1 START WITH 1 INCREMENT BY 1;
